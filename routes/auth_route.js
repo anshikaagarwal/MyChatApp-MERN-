@@ -3,10 +3,6 @@ const mongoose = require('mongoose');
 const User = require('../models/user_model');
 
 module.exports = (app) => {
-    app.get('/', (req, res) => {
-        res.send('welcome to server');
-    })
-
     app.post('/auth/signup', passport.authenticate('local'), (req, res) => {
         res.send(req.user);
     });

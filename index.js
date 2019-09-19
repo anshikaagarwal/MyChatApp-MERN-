@@ -42,8 +42,18 @@ const server = app.listen(port, () => {
     console.log('listening to port ', port);
 })
 const user = new connectedUsers();
-var io = require('socket.io')(server);
-io.set('origins', 'https://mygroupchatapp.herokuapp.com');
+const io = require("socket.io")(server, {
+    handlePreflightRequest: (req, res) => {
+        const headers = {
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+            "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
+            "Access-Control-Allow-Credentials": true
+        };
+        res.writeHead(200, headers);
+        res.end();
+    }
+});
+
 io.on('connect', (socket) => {
     socket.on('join', (room, callback) => {
         user.addUser('anshika', room);
