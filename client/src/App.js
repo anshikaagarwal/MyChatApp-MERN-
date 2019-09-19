@@ -5,6 +5,7 @@ import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
 import Chat1 from './components/chat_folder/Chat1';
 import ChatMain from './components/chat_folder/ChatMain';
+import Chat2 from './components/chat_folder/Chat2';
 import { connect } from 'react-redux';
 import { fetch_users } from './actions/auth_actions';
 
