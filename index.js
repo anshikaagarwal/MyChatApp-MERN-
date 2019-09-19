@@ -43,6 +43,7 @@ const server = app.listen(port, () => {
 })
 const user = new connectedUsers();
 var io = require('socket.io')(server);
+io.set('origins', 'https://mygroupchatapp.herokuapp.com');
 io.on('connect', (socket) => {
     socket.on('join', (room, callback) => {
         user.addUser('anshika', room);
