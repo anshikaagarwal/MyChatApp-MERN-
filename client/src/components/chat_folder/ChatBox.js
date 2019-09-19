@@ -18,7 +18,7 @@ class ChatBox extends Component {
 
     componentWillReceiveProps(props) {
         if (props.path === window.location.pathname.split('/').pop()) {
-            this.socket = io('mygroupchatapp.heroku.com');
+            this.socket = io('https://mygroupchatapp.herokuapp.com');
             this.socket.on('connect', () => {
                 this.socket.emit('join', props.path, () => { });
             });
