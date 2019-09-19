@@ -4,7 +4,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
 import Chat1 from './components/chat_folder/Chat1';
-import Chat2 from './components/chat_folder/Chat2';
+import ChatMain from './components/chat_folder/ChatMain';
 import { connect } from 'react-redux';
 import { fetch_users } from './actions/auth_actions';
 
@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Route exact path='/' component={Dashboard} />
+        <Route exact path='/' component={ChatMain} />
         <Route exact path='/dashboard' component={Dashboard} />
         <Route path='/login' component={Login} />
         <Route path='/signup' component={Signup} />
