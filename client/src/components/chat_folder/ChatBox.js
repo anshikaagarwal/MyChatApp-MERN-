@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import io from 'socket.io-client';
 import Header from '../header_folder/Header_chatbox'
 
@@ -10,15 +11,24 @@ class ChatBox extends Component {
         this.path = null;
         this.chats = null;
         this.state = null;
+        this.chatbox = React.createRef();
         this.text_message = React.createRef();
-        this.chat_box = React.createRef();
         this.send_btn = React.createRef();
         this.socket = null;
     }
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
 
     componentWillReceiveProps(props) {
+        this.scrollToBottom();
         if (props.path === window.location.pathname.split('/').pop()) {
-            this.socket = io('https://mygroupchatapp.herokuapp.com');
+            this.socket = io('localhost:5000');
+            // this.socket = io('https://mygroupchatapp.herokuapp.com');
             this.socket.on('connect', () => {
                 console.log('sockets connected');
                 this.socket.emit('join', props.path, () => { });
@@ -63,12 +73,17 @@ class ChatBox extends Component {
             return <div></div>
         }
     }
+    scrollToBottom = () => {
+        const messagesContainer = ReactDOM.findDOMNode(this.chatbox.current);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        console.log('scrollToBottom called value=', messagesContainer);
+    }
     render() {
         return (
             <div style={{ marginLeft: '-10px', marginRight: '-11px', fontFamily: 'cursive' }}>
                 <Header />
                 <div style={{ backgroundImage: "url('/images/whatsapp_background.png')", backgroundSize: 'cover' }}>
-                    <div ref={this.chat_box} style={{ height: '500px', fontWeight: '400', fontSize: '25px', overflowY: 'scroll' }}>
+                    <div ref={this.chatbox} style={{ height: '500px', fontWeight: '400', fontSize: '25px', overflowY: 'scroll' }}>
                         {this.update_chatbox()}
                     </div>
                     <div className="card">
